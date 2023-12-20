@@ -7,6 +7,8 @@ const models = require('./models')
 var indexRouter = require('./routes/index');
 var eventsRouters = require('./routes/events');
 
+const cors = require('cors')
+
 mongoose.connect('mongodb://salHarb:salma1234@ac-pi2hqji-shard-00-00.yrxuuqu.mongodb.net:27017,ac-pi2hqji-shard-00-01.yrxuuqu.mongodb.net:27017,ac-pi2hqji-shard-00-02.yrxuuqu.mongodb.net:27017/?ssl=true&replicaSet=atlas-4wzwve-shard-0&authSource=admin&retryWrites=true&w=majority', {}).then(async connection => {
   console.log("Connected");
 
@@ -34,7 +36,7 @@ var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-
+app.use(cors())
 app.use('/', indexRouter);
 app.use('/events', eventsRouters);
 

@@ -18,10 +18,11 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', async function(req, res, next) {
+  console.log(req.body)
   const event = new models.events({
     title: req.body.title,
     desc: req.body.desc,
-    date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
+    date: new Date(req.body.date)
   })
   await event.save();
   res.json();
