@@ -6,8 +6,8 @@ var router = express.Router();
 router.get('/', async function (req, res, next) {
   const allEvents = await models.events.find()
   const datesObject = {};
-  for(let event of allEvents) {
-    if(!(event.date in datesObject)) {
+  for (let event of allEvents) {
+    if (!(event.date in datesObject)) {
       datesObject[event.date] = [];
     }
     datesObject[event.date].push(event)
@@ -17,12 +17,11 @@ router.get('/', async function (req, res, next) {
   })
 });
 
-router.post('/', async function(req, res, next) {
-  console.log(req.body)
+router.post('/', async function (req, res, next) {
   const event = new models.events({
     title: req.body.title,
     desc: req.body.desc,
-    date: new Date(req.body.date)
+    date: new Date()
   })
   await event.save();
   res.json();
