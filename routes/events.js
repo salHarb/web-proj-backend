@@ -8,9 +8,9 @@ router.get('/', async function (req, res, next) {
   const datesObject = {};
   for (let event of allEvents) {
     if (!(event.date in datesObject)) {
-      datesObject[event.date] = [];
+      datesObject[event.date.getTime()] = [];
     }
-    datesObject[event.date].push(event)
+    datesObject[event.date.getTime()].push(event)
   }
   res.json({
     events: datesObject
@@ -21,7 +21,7 @@ router.post('/', async function (req, res, next) {
   const event = new models.events({
     title: req.body.title,
     desc: req.body.desc,
-    date: new Date()
+    date: new Date(Number(req.body.date))
   })
   await event.save();
   res.json();
